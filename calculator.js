@@ -26,17 +26,28 @@ function operate(operator, num1, num2) {
     } else return;
 }
 
-// populate display
+
 let displayVal = 0;
 
 const container = document.querySelector('.container');
 const display = container.querySelector('.result');
 
 const numbers = document.querySelectorAll('.number');
-console.log(numbers);
-
 for (const number of numbers) {
     number.addEventListener('click', function(e) {
-        display.textContent = `${e.target.textContent}`;
+        display.textContent += `${e.target.textContent}`; // populate display w/ numbers
     });
 }
+
+// clear button
+const clear = document.querySelector('.clear');
+clear.addEventListener('click', function(e) {
+    display.textContent = '';
+})
+
+const operators = document.querySelectorAll('.operator');
+for (const operator of operators) {
+    operators.addEventListener('click')
+}
+
+// ideas: array to store values? once operator is clicked, store number?
