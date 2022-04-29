@@ -32,22 +32,40 @@ let displayVal = 0;
 const container = document.querySelector('.container');
 const display = container.querySelector('.result');
 
+// populate display with numbers
 const numbers = document.querySelectorAll('.number');
 for (const number of numbers) {
-    number.addEventListener('click', function(e) {
-        display.textContent += `${e.target.textContent}`; // populate display w/ numbers
-    });
+    number.addEventListener('click', e => display.textContent += `${e.target.textContent}`);
 }
 
-// clear button
-const clear = document.querySelector('.clear');
-clear.addEventListener('click', function(e) {
-    display.textContent = '';
-})
+// clear display button
+const clear = document.querySelector('.clear'); 
+clear.addEventListener('click', e => display.textContent = ''); 
+
+
+
 
 const operators = document.querySelectorAll('.operator');
+
+let obj = [];
+
 for (const operator of operators) {
-    operators.addEventListener('click')
+    operator.addEventListener('click', operatorListener);
+}
+function operatorListener(e) {
+    let operation = e.target.id;            
+    let firstNum = display.textContent;      
+
+    addToArray(firstNum, operation);
+
+    display.textContent = '';
+
+    console.log(obj);
+};
+
+function addToArray (num, operation) {
+    obj.push({number: num, operator: operation});
 }
 
-// ideas: array to store values? once operator is clicked, store number?
+console.log(obj);
+// ideas: array to store values? once operator is clicked, store number
