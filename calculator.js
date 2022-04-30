@@ -1,9 +1,9 @@
 let displayVal = 0;
 let obj = [];
-let numEntered;         // boolean if num has been selected to prevent double operations
+let numSelected;         // boolean if num has been selected to prevent double operations
 let operatorPressed;    // boolean if operator has been selected to clear display upon further number entries
 let result;
-let decimal;            // boolean if decimal already used
+let equalsPressed = false;   // boolean if enter has been pressed (to prevent number entries)
 
 // basic operation functions
 function add(num1, num2) {
@@ -41,13 +41,17 @@ const display = container.querySelector('.result');
 const numbers = document.querySelectorAll('.number');
 for (const number of numbers) {
     number.addEventListener('click', e => {
+        if (equalsPressed) {
+            display.textContent = '';
+            equalsPressed = false;
+        }
         if (operatorPressed) {
             display.textContent = '';
             operatorPressed = false;
         }
         display.textContent += `${e.target.textContent}`
         disableDecimal(display.textContent);
-        numEntered = true;
+        numSelected = true;
     });
 }
 
@@ -80,7 +84,7 @@ function addObject(num, operation) {
 function operatorListener(e) {
     enableDecimal();
 
-    if (numEntered) {
+    if (numSelected) {
         let operation = e.target.id;            
         let firstNum = display.textContent;
 
@@ -89,7 +93,7 @@ function operatorListener(e) {
         }
 
         update();
-        numEntered = false;
+        numSelected = false;
     }
 
     if (equalsPressed) {
@@ -117,8 +121,7 @@ const operators = document.querySelectorAll('.operator');
 for (const operator of operators) {
     operator.addEventListener('click', operatorListener);
 }
-
-let equalsPressed = false;          
+         
 function equals() {
     const equal = document.querySelector('.equals');
     equal.addEventListener('click', (e) => {
