@@ -134,6 +134,8 @@ function update() {
     } else if (obj.length > 2) {
         result = operate(obj[obj.length - 2].operator, parseFloat(result), parseFloat(obj[obj.length - 1].number));
     }
+
+    display.textContent = result;
 }
 
 const operators = document.querySelectorAll('.operator');
