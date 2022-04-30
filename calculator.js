@@ -1,4 +1,3 @@
-let displayVal = 0;
 let obj = [];
 let numSelected;         // boolean if num has been selected to prevent double operations
 let operatorPressed;    // boolean if operator has been selected to clear display upon further number entries

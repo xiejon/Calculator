@@ -1,0 +1,27 @@
+.container {
+    display: grid;
+    width: 400px;
+    gap: 5px;
+    background-color: cadetblue;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    align-items: stretch;
+    border-radius: 20px;
+    padding: 30px;
+}
+
+.display {
+    background-color: gray;
+    grid-column: span 4;
+    border-radius: 20px;
+}
+
+.button {
+    grid-column: span 1;
+    grid-row: span 1;
+    height: 80px;
+}
+
+.bigbtn {
+    grid-column: span 2;
+}
