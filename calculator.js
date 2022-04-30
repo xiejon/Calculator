@@ -193,4 +193,5 @@ document.addEventListener('keydown', e => {
 
 
 // to do:
-// fix bug where user can add numbers after calculation is made
+// fix overflow during calculations of decimals & large numbers
+// percent and +/- buttons
