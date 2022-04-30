@@ -1,3 +1,11 @@
+let displayVal = 0;
+let obj = [];
+let numEntered;         // boolean if num has been selected to prevent double operations
+let operatorPressed;    // boolean if operator has been selected to clear display upon further number entries
+let result;
+let decimal;            // boolean if decimal already used
+
+// basic operation functions
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -26,17 +34,21 @@ function operate(operator, num1, num2) {
     } else return;
 }
 
-
-let displayVal = 0;
-let obj = [];   
-
 const container = document.querySelector('.container');
 const display = container.querySelector('.result');
 
 // populate display with numbers
 const numbers = document.querySelectorAll('.number');
 for (const number of numbers) {
-    number.addEventListener('click', e => display.textContent += `${e.target.textContent}`);
+    number.addEventListener('click', e => {
+        if (operatorPressed) {
+            display.textContent = '';
+            operatorPressed = false;
+        }
+        disableDecimal(display.textContent);
+        display.textContent += `${e.target.textContent}`
+        numEntered = true;
+    });
 }
 
 // clear display button
@@ -44,39 +56,81 @@ const clear = document.querySelector('.clear');
 clear.addEventListener('click', e => { 
     display.textContent = '';
     obj = [];
+    enableDecimal();
 }); 
 
-function addToArray(num, operation) {
+function disableDecimal(display) {                     // prevent multiple decimal points
+    for (char of display) {
+        if (char === '.') {
+            document.querySelector('#dec').disabled = true;
+            return;
+        }
+    }
+}
+
+function enableDecimal() {
+    document.querySelector('#dec').disabled = false;
+}
+
+// add entries to array
+function addObject(num, operation) {
     obj.push({number: num, operator: operation});
 }
 
 function operatorListener(e) {
-    let operation = e.target.id;            
-    let firstNum = display.textContent;
-    if (firstNum.length != 0) {        
-        addToArray(firstNum, operation);
+    enableDecimal();
+
+    if (numEntered) {
+        let operation = e.target.id;            
+        let firstNum = display.textContent;
+
+        if (firstNum.length != 0) {        
+            addObject(firstNum, operation);
+        }
+
+        update();
+        numEntered = false;
     }
-    display.textContent = '';
+
+    if (equalsPressed) {
+        result = display.textContent;
+        equalsPressed = false;
+        operatorListener();
+    }
+
+    operatorPressed = true;
     console.log(obj);
 };
+
+function update() {
+    if (obj.length === 1) {
+        result = display.textContent;
+    } else if (obj.length === 2) {
+        result = operate(obj[0].operator, parseFloat(obj[0].number), parseFloat(obj[1].number));
+    } else if (obj.length > 2) {
+        result = operate(obj[obj.length - 2].operator, parseFloat(result), parseFloat(obj[obj.length - 1].number));
+    }
+    display.textContent = result;
+}
 
 const operators = document.querySelectorAll('.operator');                   
 for (const operator of operators) {
     operator.addEventListener('click', operatorListener);
 }
 
-function equalsListener() {
+let equalsPressed = false;          
+function equals() {
     const equal = document.querySelector('.equals');
     equal.addEventListener('click', (e) => {
         obj.push({number: display.textContent});        // push latest number to array
-        let result = operate(obj[0].operator, parseInt(obj[0].number), parseInt(obj[1].number));    // initialize result with first 2 array entries
-        for (let i = 1; i < obj.length - 1; i++){
-            result = operate(obj[i].operator, result, parseInt(obj[i + 1].number));
-        }
-        display.textContent = result;
+        update();           
+
+        result = display.textContent;                   // store current total
+
+        equalsPressed = true;
+        obj = [];                                       // clear array to allow for new entries
     });
 }
-equalsListener();
+equals();
 
 console.log(obj);
-// ideas: array to store values? once operator is clicked, store number
