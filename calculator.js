@@ -1,8 +1,8 @@
 let obj = [];
-let numSelected;         // boolean if num has been selected to prevent double operations
-let operatorPressed;    // boolean if operator has been selected to clear display upon further number entries
+let numSelected;                // boolean if num has been selected to prevent double operations
+let operatorPressed;            // boolean if operator has been selected to clear display upon further number entries
 let result;
-let equalsPressed = false;   // boolean if enter has been pressed (to prevent number entries)
+let equalsPressed = false;      // boolean if enter has been pressed (to prevent number entries)
 
 // basic operation functions
 function add(num1, num2) {
@@ -36,10 +36,25 @@ function operate(operator, num1, num2) {
 const container = document.querySelector('.container');
 const display = container.querySelector('.result');
 
+// prevent user input from overflowing
+function checkNumLength() {
+    if (display.textContent.length >= 13) {
+        for (const number of numbers) {
+            number.disabled = true;
+        }
+    }
+}
+function enableNum() {
+    for (const number of numbers) {
+        number.disabled = false;
+    }
+}
+
 // populate display with numbers
 const numbers = document.querySelectorAll('.number');
 for (const number of numbers) {
     number.addEventListener('click', e => {
+
         if (equalsPressed) {
             display.textContent = '';
             equalsPressed = false;
@@ -48,9 +63,13 @@ for (const number of numbers) {
             display.textContent = '';
             operatorPressed = false;
         }
-        display.textContent += `${e.target.textContent}`
+
+        checkNumLength();
+        display.textContent += `${e.target.textContent}`;
         disableDecimal(display.textContent);
         numSelected = true;
+
+        console.log(display.textContent.length);
     });
 }
 
@@ -59,10 +78,12 @@ const clear = document.querySelector('.clear');
 clear.addEventListener('click', e => { 
     display.textContent = '';
     obj = [];
+    enableNum();
     enableDecimal();
 }); 
 
-function disableDecimal(display) {                     // prevent multiple decimal points
+// prevent multiple decimal points
+function disableDecimal(display) {                     
     for (char of display) {
         if (char === '.') {
             document.querySelector('#dec').disabled = true;
@@ -70,7 +91,6 @@ function disableDecimal(display) {                     // prevent multiple decim
         }
     }
 }
-
 function enableDecimal() {
     document.querySelector('#dec').disabled = false;
 }
@@ -101,6 +121,7 @@ function operatorListener(e) {
         operatorListener();
     }
 
+    enableNum();
     operatorPressed = true;
     console.log(obj);
 };
@@ -113,7 +134,6 @@ function update() {
     } else if (obj.length > 2) {
         result = operate(obj[obj.length - 2].operator, parseFloat(result), parseFloat(obj[obj.length - 1].number));
     }
-    display.textContent = result;
 }
 
 const operators = document.querySelectorAll('.operator');
@@ -129,6 +149,7 @@ function equals() {
 
         result = display.textContent;                   // store current total
 
+        enableNum();
         equalsPressed = true;
         obj = [];                                       // clear array to allow for new entries
     });
@@ -166,6 +187,7 @@ document.addEventListener('keydown', e => {
         document.querySelector('.clear').click();
     }
 });
+
 
 
 // to do:
