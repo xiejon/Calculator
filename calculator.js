@@ -45,8 +45,8 @@ for (const number of numbers) {
             display.textContent = '';
             operatorPressed = false;
         }
-        disableDecimal(display.textContent);
         display.textContent += `${e.target.textContent}`
+        disableDecimal(display.textContent);
         numEntered = true;
     });
 }
@@ -113,7 +113,7 @@ function update() {
     display.textContent = result;
 }
 
-const operators = document.querySelectorAll('.operator');                   
+const operators = document.querySelectorAll('.operator');
 for (const operator of operators) {
     operator.addEventListener('click', operatorListener);
 }
@@ -134,3 +134,37 @@ function equals() {
 equals();
 
 console.log(obj);
+
+
+// keypad functionality
+document.addEventListener('keydown', e => {
+    console.log(e);
+    if (['1','2','3','4','5','6','7','8','9','0'].includes(e.key)) {
+        e.preventDefault();
+        document.querySelector('#btn' + e.key).click();
+    } else if (e.key === '.') {
+        e.preventDefault();
+        document.querySelector('#dec').click();
+    } else if (e.key === 'Enter' || e.key === '=') {
+       document.querySelector('.enter').click();
+    } else if (e.key === '+') {
+        e.preventDefault();
+        document.querySelector('.add').click();
+    } else if (e.key == '-') {
+        e.preventDefault();
+        document.querySelector('.subtract').click();
+    } else if (e.key === '*' || e.key === 'x') {
+        e.preventDefault();
+        document.querySelector('.multiply').click();
+    } else if (e.key === '/') {
+        e.preventDefault();
+        document.querySelector('.divide').click();
+    } else if (e.key === 'Backspace') {
+        e.preventDefault();
+        document.querySelector('.clear').click();
+    }
+});
+
+
+// to do:
+// fix bug where user can add numbers after calculation is made
