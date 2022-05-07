@@ -11,18 +11,18 @@ body {
     display: grid;
     max-width: 350px;
     gap: 6px;
-    background-color: rgb(162, 32, 32);
+    background-color: rgb(206, 27, 27);
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     align-items: stretch;
     border-radius: 30px;
     padding: 40px;
-    box-shadow: 1px 1px 1px 1px rgb(24, 24, 24);
+    box-shadow: 1px 1px 2px 2px rgb(24, 24, 24);
 }
 
 .display {
     display: flex;
-    background-color: rgb(26, 26, 26);
+    background-color: rgb(43, 43, 43);
     grid-column: span 4;
   
     border-radius: 20px;
@@ -41,7 +41,7 @@ body {
 
 
 .button {
-    background-color: rgb(26, 26, 26);
+    background-color: rgb(43, 43, 43);
     grid-column: span 1;
     grid-row: span 1;
     height: 70px;

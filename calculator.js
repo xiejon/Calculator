@@ -195,3 +195,4 @@ document.addEventListener('keydown', e => {
 // to do:
 // fix overflow during calculations of decimals & large numbers
 // percent and +/- buttons
+// transition on mousehover
