@@ -63,12 +63,10 @@ for (const number of numbers) {
             display.textContent = '';
             operatorPressed = false;
         }
-
         checkNumLength();
         display.textContent += `${e.target.textContent}`;
         disableDecimal(display.textContent);
         numSelected = true;
-
         console.log(display.textContent.length);
     });
 }
@@ -106,11 +104,9 @@ function operatorListener(e) {
     if (numSelected) {
         let operation = e.target.id;            
         let firstNum = display.textContent;
-
         if (firstNum.length != 0) {        
             addObject(firstNum, operation);
         }
-
         update();
         numSelected = false;
     }
@@ -134,7 +130,6 @@ function update() {
     } else if (obj.length > 2) {
         result = operate(obj[obj.length - 2].operator, parseFloat(result), parseFloat(obj[obj.length - 1].number));
     }
-
     display.textContent = result;
 }
 
@@ -148,9 +143,7 @@ function equals() {
     equal.addEventListener('click', (e) => {
         obj.push({number: display.textContent});        // push latest number to array
         update();           
-
         result = display.textContent;                   // store current total
-
         enableNum();
         equalsPressed = true;
         obj = [];                                       // clear array to allow for new entries
@@ -191,8 +184,3 @@ document.addEventListener('keydown', e => {
 });
 
 
-
-// to do:
-// fix overflow during calculations of decimals & large numbers
-// percent and +/- buttons
-// transition on mousehover
