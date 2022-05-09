@@ -2,6 +2,8 @@
 
 Basic calculator that can multiply/divide/add/subtract, support decimals, and has keypad functionality. 
 
+Viewable at https://xiejon.github.io/Calculator/
+
 ## Key Takeaways/Challenges
 
 Operator function 
