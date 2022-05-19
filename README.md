@@ -1,24 +1,36 @@
 # Calculator
 
-Basic calculator that can multiply/divide/add/subtract, support decimals, and has keypad functionality. 
+Basic calculator that can multiply/divide/add/subtract, support decimals, and works with the keypad. Created as part of The Odin Project's Full-Stack Javascript course.
 
 Viewable at https://xiejon.github.io/Calculator/
 
-## Key Takeaways/Challenges
+## Objectives 
 
-Operator function 
-- The biggest challenge was figuring out how to chain together operations. To do that, I decided to push the user input into an array each time the operator button was clicked.
+1.  Create a working calculator that can chain operators. 
 
-Booleans 
-- Using functions with booleans to check if certain conditions were met (i.e. if decimal button had already been pressed).
+## Motivation 
 
-DOM Manipulation 
-- Using JS HTML DOM methods to add event listeners and register clicks, record the event, and update the HTML text. 
+- Use newly acquired knowledge in DOM manipulation, objects, booleans, and arrays to create a functional app.
 
-Objects 
-- Storing data in objects, and then later accessing & making use of this data through loops and object methods. 
+## Overview of App
+
+1. User enters a number or a selection of numbers. Ensure user cannot select decimal button more than once. 
+2. One of the operator buttons is pressed.
+3. User enters another number. 
+4. If the operator button is pressed again, the previous two numbers are operated on. The result is then displayed.
+5. Repeat steps 1-4 until all numbers are entered. Then, the user can click the '=' button to calculate and display the final result. 
+
+## Challenges
+
+1. Operators
+    - I struggled figuring out how to chain together operations. I ended up using an array to store number entries and then wrote a function to operate on the last two numbers once an operator was clicked.
+
+2. Display Overflow
+    - I had to account for numbers that exceeded the container. My solution was to limit the user entry length to 13 digits. 
+
+3. UI Design
+    - I made this project before I learned about CSS grid. It took me a while to position buttons and to translate my sketch of the calculator design into actual code. 
 
 ## Areas for Improvement
-
-- I wish I had done more planning in pseudocode before actually beginning to code.
-- I will continue working to make my code more efficient and easier to read. Currently there are too many functions nested within one another. 
+- In hindsight, after working on other projects, I see how inefficient my code is. A lot of repetition could be reduced with functions and modules. This would also improve the general organization of the code. I also see how important it is to name functions well, as it is also not immediately clear what each function does. 
+- Add support for more complex operations, i.e. logarithms, exponents, etc.
